@@ -272,7 +272,7 @@
   <div class="stars"></div>
 
   <header>
-    <h1>POLIMORFISME DAN ABSTRAKSI/h1>
+    <h1>POLIMORFISME DAN ABSTRAKSI
     <p>Uliya Gumpari | 251410008 | Kelas: SI2A</p>
   </header>
 
@@ -280,39 +280,13 @@
 
       <section>
   <h2>01. Pengertian Pewarisan</h2>
-<p>
-    Pewarisan atau inheritance itu konsep di OOP yang bikin sebuah class bisa
-    “mewarisi” sifat dari class lain. Jadi kita nggak perlu bikin semuanya dari nol.
-  </p>
+<p><b>Inheritance:</b></p>
 
-  <p>
-    Ibaratnya kayak anak mewarisi sifat orang tua. Di program, class turunan (child)
-    bisa pakai method atau atribut dari class induk (parent).
-  </p>
-
-  <p>
-    Di Dart, pewarisan pakai keyword <b>extends</b>.
-  </p>
-
-  <p>Contoh sederhana:</p>
-
-  <pre>
-class Hewan {
-  void bersuara() => print('Hewan bersuara');
-}
-
-class Kucing extends Hewan {
-  @override
-  void bersuara() => print('Meong');
-}
-  </pre>
-
-  <p>
-    Jadi di sini <b>Kucing</b> itu mewarisi dari <b>Hewan</b>, tapi dia bisa
-    ngubah perilakunya sendiri (override).
-  </p>
-
-  <p><b>Intinya:</b> biar kode lebih simpel, nggak ngulang-ngulang, dan gampang dikembangin.</p>
+  <ul>
+    <li><b>extends</b> keyword untuk pewarisan class</li>
+    <li><b>super()</b> untuk memanggil constructor parent</li>
+    <li><b>@override</b> untuk mengubah (override) method dari parent</li>
+  </ul>
 
   <div class="code-container">
     <div class="code-header">DART SOURCE CODE</div>
@@ -340,20 +314,32 @@ void main() {
    </section>
 
     <section>
-  <h2>02. Jenis-jenis Constructor di Dart</h2>
+  <h2>02. Pengantar Polimorfisme</h2>
+ <section>
+  <h2>Pengantar Polimorfisme</h2>
+
+ <p>
+    <b>Polimorfisme</b> berasal dari kata <i>poly</i> yang berarti banyak dan 
+    <i>morph</i> yang berarti bentuk, sehingga dapat diartikan sebagai “banyak bentuk”.
+  </p>
+
+  <p>
+    Konsep polimorfisme adalah objek dari subclass dapat diperlakukan sebagai 
+    objek dari superclass. Hal ini memungkinkan satu tipe data digunakan untuk 
+    berbagai objek yang berbeda.
+  </p>
+
+  <p>
+    Sebagai contoh, Kucing, Anjing, dan Burung semuanya dapat dianggap sebagai Hewan.
+  </p>
+
+  <p><b>Tipe Polimorfisme:</b></p>
   <ul>
-    <li><span class="highlight">Default Constructor</span>: Constructor bawaan yang otomatis dibuat oleh Dart jika tidak ada constructor lain di dalam class. Bentuknya <b>ClassName()</b>.</li>
-    
-    <li><span class="highlight">Named Constructor</span>: Constructor yang memiliki nama tambahan sehingga objek dapat dibuat dengan cara yang berbeda. Bentuknya <b>ClassName.nama()</b>.</li>
-    
-    <li><span class="highlight">Parameterized Constructor</span>: Constructor yang menggunakan parameter untuk memberikan nilai awal pada atribut ketika objek dibuat. Bentuknya <b>ClassName(this.param)</b>.</li>
-    
-    <li><span class="highlight">Constant Constructor</span>: Digunakan untuk membuat objek yang bersifat konstan dan biasanya digunakan jika atribut dalam class bersifat <b>final</b>. Bentuknya <b>const ClassName()</b>.</li>
-    
-    <li><span class="highlight">Factory Constructor</span>: Constructor yang digunakan untuk mengontrol proses pembuatan objek dan dapat mengembalikan objek baru atau objek yang sudah ada. Biasanya dibahas lebih lanjut pada materi lanjutan.</li>
+    <li>Compile-time polymorphism: Method overloading (tidak didukung dalam Dart)</li>
+    <li>Runtime polymorphism: Method overriding (didukung dalam Dart)</li>
   </ul>
 </section>
-
+      
     <section>
       <h2>03. Named Constructor-contoh</h2>
       <p>Named constructor adalah constructor yang memiliki nama tambahan dalam sebuah class.
