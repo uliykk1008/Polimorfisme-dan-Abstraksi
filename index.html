@@ -599,9 +599,11 @@ void main() {
     </section>
 
     <section>
-      <h2>09. Setter</h2>
-      <p>Setter adalah method yang digunakan untuk mengubah atau memperbarui nilai atribut dalam sebuah class.
-        Dengan setter, perubahan nilai atribut dapat dikontrol sehingga data tetap valid.</p>
+      <h2>10.Interface di Dart </h2>
+  <p>
+    Interface di Dart adalah cara agar sebuah class memaksa class lain 
+    untuk mengimplementasikan method tertentu menggunakan <code>implements</code>.
+  </p>
 
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
@@ -609,38 +611,31 @@ void main() {
 // Nim    : 251410008
 // Kelas  : SI2A
 
-class Person {
-  String _name;
-  int age;
+interface class Flyable {
+  void terbang() => print('Terbang...');
+}
 
-  Person(this._name, this.age);
+class KupuKupu implements Flyable {
+  @override
+  void terbang() => print('Kupu-kupu terbang indah');
+}
 
-  set setName1(String name) {
-    _name = name;
-  }
-
-  void setName(String name) {
-    _name = name;
-  }
-
-  String getName() {
-    return _name;
-  }
+class Drone implements Flyable {
+  @override
+  void terbang() => print('Drone terbang cepat');
 }
 
 void main() {
-  Person person = Person("Uliya", 18);
+  KupuKupu k = KupuKupu();
+  Drone d = Drone();
 
-  person.setName('Uliya');
-  print(person.getName());
-
-  person.setName1 = 'Gumpari';
-  print(person.getName());
+  k.terbang();
+  d.terbang();
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=69ca2d83e1cb329672c55d5652a3db64&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=0dc7353cbec4f490fb7a532d17887bea&run=true')">Run Program</button>
     </section>
 
     <section>
