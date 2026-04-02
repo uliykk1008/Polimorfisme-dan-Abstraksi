@@ -639,9 +639,19 @@ void main() {
     </section>
 
     <section>
-      <h2>10. Encapsulation pada Product</h2>
-      <p>Encapsulation adalah konsep dalam OOP yang digunakan untuk menyembunyikan data dan mengatur akses terhadap data tersebut melalui method tertentu.
-        Pada contoh produk, atribut disembunyikan dan hanya dapat diakses melalui getter dan setter yang memiliki validasi tertentu.</p>
+  <h2>11. Perbedaan Extends vs Implements di Dart</h2>
+
+  <p><strong>extends:</strong> Digunakan untuk mewarisi properti dan method dari class lain. Class turunan dapat menggunakan atau override method dari class induk.</p>
+
+  <p><strong>implements:</strong> Digunakan untuk memaksa class lain mengimplementasikan semua method dari class interface. Method harus di-override, tidak mewarisi implementasi.</p>
+</section>
+
+    <section>
+      <h2>12. Static Members dan Method</h2>
+      <p>
+    Static digunakan untuk membuat variabel atau method yang bisa diakses
+    tanpa membuat objek dari class. Biasanya dipanggil langsung dengan nama class.
+  </p>
 
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
@@ -649,44 +659,22 @@ void main() {
 // Nim    : 251410008
 // Kelas  : SI2A
 
-class Produk {
-  String _nama;
-  double _harga;
+class MathUtils {
+  static double pi = 3.14;
 
-  Produk(this._nama, this._harga);
-
-  String get nama => _nama;
-  double get harga => _harga;
-
-  set nama(String value) {
-    if (value.length >= 3) {
-      _nama = value;
-    }
-  }
-
-  set harga(double value) {
-    if (value > 0) {
-      _harga = value;
-    }
+  static int add(int x, int y) {
+    return x + y;
   }
 }
 
 void main() {
-  var produk1 = Produk('Monitor Samsung', 3500.0);
-
-  print(produk1.nama);
-  print(produk1.harga);
-
-  produk1.nama = 'Keyboard';
-  produk1.harga = 1200.0;
-
-  print(produk1.nama);
-  print(produk1.harga);
+  print('Nilai pi : ${MathUtils.pi}');
+  print('Result : ${MathUtils.add(10, 20)}');
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=a95bf60df5366b4804bff7e7cab10c9f&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=b2345bcbd0536fd65f575b6a9b51a66c&run=true')">Run Program</button>
     </section>
        <section>
       <h2>11. Praktik 2 Enkapsulasi Lengkap</h2>
