@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OOP Report - Uliya Gumpari</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&family=Orbitron:wght@400;700;900&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      background: #000814;
+      overflow-x: hidden;
+    }
+
+    /* Galaxy Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 30%, #001d3d, transparent 40%),
+        radial-gradient(circle at 80% 70%, #3a0ca3, transparent 40%),
+        radial-gradient(circle at 50% 50%, #000814, transparent 60%);
+      z-index: -2;
+    }
+
+    /* Moving Stars Effect */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image:
+        radial-gradient(1px 1px at 10% 10%, #fff, transparent),
+        radial-gradient(2px 2px at 30% 50%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 80%, #ffd60a, transparent),
+        radial-gradient(2px 2px at 90% 10%, #fff, transparent);
+      background-size: 500px 500px;
+      animation: moveStars 100s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-500px);
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 140px 20px 80px;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: 5px;
+      color: #ffd60a;
+      text-shadow: 0 0 30px rgba(255, 214, 10, 0.4);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: #00f5ff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      padding: 60px;
+      margin-bottom: 100px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #ffd60a;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50%;
+      height: 4px;
+      background: #00f5ff;
+      box-shadow: 0 0 10px #00f5ff;
+    }
+
+    p {
+      font-weight: 300;
+      line-height: 2;
+      margin-bottom: 30px;
+      color: #e0e0e0;
+      font-size: 1.1rem;
+    }
+
+    ul {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    ul li {
+      margin-bottom: 15px;
+      padding-left: 35px;
+      position: relative;
+      color: #e0e0e0;
+    }
+
+    ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #ffd60a;
+      font-size: 1.2rem;
+    }
+
+    /* CODE BOX STYLING */
+    .code-container {
+      margin: 30px 0;
+      background: #050505;
+      border: 1px solid #333;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      background: #111;
+      padding: 10px 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      color: #666;
+      border-bottom: 1px solid #222;
+      text-transform: uppercase;
+    }
+
+    pre {
+      padding: 25px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #00ff88;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 16px 45px;
+      border: none;
+      border-radius: 40px;
+      background: #ffd60a;
+      color: black;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.4s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    button:hover {
+      background: white;
+      box-shadow: 0 0 40px #ffd60a;
+      transform: scale(1.05);
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(15px);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 85%;
+      background: black;
+      border: 2px solid #ffd60a;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(255, 214, 10, 0.3);
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close {
+      position: absolute;
+      right: 30px;
+      top: 20px;
+      font-size: 45px;
+      color: #ffd60a;
+      cursor: pointer;
+      z-index: 1001;
+      font-weight: 900;
+    }
+
+    footer {
+      text-align: center;
+      padding: 100px 20px;
+      color: #666;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+    }
+
+    .highlight {
+      color: #00f5ff;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stars"></div>
+
+  <header>
+    <h1>POLIMORFISME DAN ABSTRAKSI/h1>
+    <p>Uliya Gumpari | 251410008 | Kelas: SI2A</p>
+  </header>
+
+  <div class="container">
+
+      <section>
+  <h2>01. Pengertian Pewarisan</h2>
+<p>
+    Pewarisan atau inheritance itu konsep di OOP yang bikin sebuah class bisa
+    “mewarisi” sifat dari class lain. Jadi kita nggak perlu bikin semuanya dari nol.
+  </p>
+
+  <p>
+    Ibaratnya kayak anak mewarisi sifat orang tua. Di program, class turunan (child)
+    bisa pakai method atau atribut dari class induk (parent).
+  </p>
+
+  <p>
+    Di Dart, pewarisan pakai keyword <b>extends</b>.
+  </p>
+
+  <p>Contoh sederhana:</p>
+
+  <pre>
+class Hewan {
+  void bersuara() => print('Hewan bersuara');
+}
+
+class Kucing extends Hewan {
+  @override
+  void bersuara() => print('Meong');
+}
+  </pre>
+
+  <p>
+    Jadi di sini <b>Kucing</b> itu mewarisi dari <b>Hewan</b>, tapi dia bisa
+    ngubah perilakunya sendiri (override).
+  </p>
+
+  <p><b>Intinya:</b> biar kode lebih simpel, nggak ngulang-ngulang, dan gampang dikembangin.</p>
+
+  <div class="code-container">
+    <div class="code-header">DART SOURCE CODE</div>
+<pre><code>// Nama  : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+class Hewan {
+  void bersuara() => print('...');
+}
+
+class Anjing extends Hewan {
+  @override
+  void bersuara() => print('Guk Guk');
+}
+
+void main() {
+  Hewan hewan = Anjing();
+  hewan.bersuara();
+}
+</code></pre>
+  </div>
+
+  <button onclick="openModal('https://dartpad.dev/?id=ad82695d5ca41a3be4b47bb708bf7a1c&run=true')">Run Program</button>
+   </section>
+
+    <section>
+  <h2>02. Jenis-jenis Constructor di Dart</h2>
+  <ul>
+    <li><span class="highlight">Default Constructor</span>: Constructor bawaan yang otomatis dibuat oleh Dart jika tidak ada constructor lain di dalam class. Bentuknya <b>ClassName()</b>.</li>
+    
+    <li><span class="highlight">Named Constructor</span>: Constructor yang memiliki nama tambahan sehingga objek dapat dibuat dengan cara yang berbeda. Bentuknya <b>ClassName.nama()</b>.</li>
+    
+    <li><span class="highlight">Parameterized Constructor</span>: Constructor yang menggunakan parameter untuk memberikan nilai awal pada atribut ketika objek dibuat. Bentuknya <b>ClassName(this.param)</b>.</li>
+    
+    <li><span class="highlight">Constant Constructor</span>: Digunakan untuk membuat objek yang bersifat konstan dan biasanya digunakan jika atribut dalam class bersifat <b>final</b>. Bentuknya <b>const ClassName()</b>.</li>
+    
+    <li><span class="highlight">Factory Constructor</span>: Constructor yang digunakan untuk mengontrol proses pembuatan objek dan dapat mengembalikan objek baru atau objek yang sudah ada. Biasanya dibahas lebih lanjut pada materi lanjutan.</li>
+  </ul>
+</section>
+
+    <section>
+      <h2>03. Named Constructor-contoh</h2>
+      <p>Named constructor adalah constructor yang memiliki nama tambahan dalam sebuah class.
+Constructor ini digunakan untuk membuat objek dengan cara yang berbeda dari constructor utama.
+Dalam Dart, penulisannya menggunakan format .<span class="highlight">NamaClass.namaConstructor()</span>.
+      </p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+import 'dart:convert';
+
+class Mobil {
+  String? merk;
+  int? tahun;
+
+  // Constructor utama
+  Mobil(this.merk, this.tahun);
+
+  // Named constructor untuk mobil baru
+  Mobil.mobilBaru()
+      : merk = 'Toyota',
+        tahun = 2023;
+
+  // Named constructor dari JSON
+  Mobil.fromJson(Map<String, dynamic> data)
+      : merk = data['merk'],
+        tahun = data['tahun'];
+
+  // Method tambahan untuk menampilkan info mobil
+  void infoMobil() {
+    print('Mobil $merk diproduksi pada tahun $tahun');
+  }
+}
+
+void main() {
+  print('=== Contoh Penggunaan Constructor pada Class Mobil ===\n');
+
+  // 1. Menggunakan constructor biasa
+  var mobil1 = Mobil('Honda', 2020);
+  print('Objek pertama:');
+  mobil1.infoMobil();
+
+  print('');
+
+  // 2. Menggunakan named constructor
+  var mobil2 = Mobil.mobilBaru();
+  print('Objek kedua (mobil baru):');
+  mobil2.infoMobil();
+
+  print('');
+
+  // 3. Menggunakan data JSON
+  String jsonString = '{"merk":"Suzuki","tahun":2021}';
+  Map<String, dynamic> data = jsonDecode(jsonString);
+
+  var mobil3 = Mobil.fromJson(data);
+  print('Objek ketiga (dari JSON):');
+  mobil3.infoMobil();
+
+  print('\nProgram selesai dijalankan.');
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=2ffef3d81726bfde3daa75f5ab548ef9&run=true')">Run Program</button>
+    </section>
+
+    <section>
+      <h2>04. Constant Constructor</h2>
+      <p>Constant constructor adalah constructor yang digunakan untuk membuat objek konstan. Constructor ini biasanya digunakan
+        ketika semua atribut pada class bersifat final, sehingga nilai objek tidak dapat diubah setelah dibuat.
+      </p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class Warna {
+  final int r, g, b;
+  const Warna(this.r, this.g, this.b);
+
+  @override
+  String toString() {
+    return 'Warna(r: $r, g: $g, b: $b)';
+  }
+}
+
+void main() {
+  const merah = Warna(255, 0, 0);
+  const merahLagi = Warna(255, 0, 0);
+
+  print(merah);
+  print(merahLagi);
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=25efca52d8ff16170c292b4460287493&run=true')">Run Program</button>
+    </section>
+
+    <section>
+      <h2>05. Initializer List</h2>
+      <p>Initializer list adalah cara untuk menginisialisasi nilai atribut sebelum constructor dijalankan. Teknik ini biasanya
+        digunakan ketika nilai atributperlu diproses terlebih dahulu, misalnya mengambil nilai absolut dari suatu angka sebelum
+        disimpan ke dalam atribut.</p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class Titik {
+  final double x, y;
+
+  Titik(double x, double y)
+      : x = x.abs(),
+        y = y.abs() {
+    print('Titik dibuat di (${this.x}, ${this.y})');
+  }
+}
+
+void main(){
+  var titik1 = Titik(3.0, 4.0);
+  var titik2 = Titik(-5.0, 10.0);
+  var titik3 = Titik(-1.5, -2.5);
+
+  print(titik1.x);
+  print(titik2.x);
+  print(titik3.x);
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=a9b94f9d14c5a117775a665534ccca55&run=true')">Run Program</button>
+    </section>
+
+     <section>
+      <h2>06. Praktik 1 Multiple Constructor</h2>
+      <p>Praktik pembuatan kelas Mahasiswa yang memiliki beberapa jenis konstruktor untuk 
+        memberikan kemudahan dalam membuat objek berdasarkan kebutuhan data yang berbeda.</p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+class Mahasiswa {
+  String nama;
+  int umur;
+
+  // Constructor default
+  Mahasiswa(this.nama, this.umur);
+
+  // Named constructor dari Map
+  Mahasiswa.dariMap(Map<String, dynamic> data)
+      : nama = data['nama'],
+        umur = data['umur'];
+
+  // Named constructor tanpa nama
+  Mahasiswa.tanpaNama(this.umur) : nama = "Tanpa Nama";
+
+  void tampilkan() {
+    print("Nama: $nama, Umur: $umur");
+  }
+}
+
+void main() {
+  // Objek dari constructor default
+  var mhs1 = Mahasiswa("Uliya", 18);
+
+  // Objek dari named constructor dariMap
+  var data = {"nama": "Gumpari", "umur": 18};
+  var mhs2 = Mahasiswa.dariMap(data);
+
+  // Objek dari named constructor tanpaNama
+  var mhs3 = Mahasiswa.tanpaNama(19);
+
+  mhs1.tampilkan();
+  mhs2.tampilkan();
+  mhs3.tampilkan();
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=f6c646b52ec042f01fc5afcddb6f75d5&run=true')">Run Program</button>
+    </section>
+
+    <section>
+      <h2>07. Public & Private</h2>
+      <p>Public dan private digunakan untuk mengatur tingkat akses terhadap atribut atau method dalam sebuah class.
+        Dalam Object Oriented Programming, atribut yang diawali dengan tanda _ dianggap private,
+        artinya atribut tersebut hanya dapat diakses dari dalam class yang sama.</p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+class Person {
+  String name;
+  int age;
+
+  Person(this.name, this.age);
+}
+
+void main() {
+  var person = Person("Uliya", 18);
+
+  print("Nama: ${person.name}");
+  print("Umur: ${person.age}");
+}
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=6ccaec7c380565edfe9ef90eebfa4754&run=true')">Run Program</button>
+    </section>
+
+    <section>
+      <h2>08. Getter</h2>
+      <p>Getter adalah method yang digunakan untuk mengambil atau membaca nilai atribut dari sebuah class.  Getter biasanya
+        digunakan ketika atribut bersifat private sehingga nilai tersebut tidak dapat diakses secara langsung dari luar class.
+      </p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class Person {
+  String _name;
+  int age;
+
+  Person(this._name, this.age);
+
+  String get getName1 {
+    return _name;
+  }
+
+  String getName() {
+    return _name;
+  }
+}
+
+void main() {
+  Person person = Person("Uliya", 18);
+  print(person.getName());
+  print(person.getName1);
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=8deb8c7967c461c4bf87dae44d88c0ea&run=true')">Run Program</button>
+    </section>
+
+    <section>
+      <h2>09. Setter</h2>
+      <p>Setter adalah method yang digunakan untuk mengubah atau memperbarui nilai atribut dalam sebuah class.
+        Dengan setter, perubahan nilai atribut dapat dikontrol sehingga data tetap valid.</p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class Person {
+  String _name;
+  int age;
+
+  Person(this._name, this.age);
+
+  set setName1(String name) {
+    _name = name;
+  }
+
+  void setName(String name) {
+    _name = name;
+  }
+
+  String getName() {
+    return _name;
+  }
+}
+
+void main() {
+  Person person = Person("Uliya", 18);
+
+  person.setName('Uliya');
+  print(person.getName());
+
+  person.setName1 = 'Gumpari';
+  print(person.getName());
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=69ca2d83e1cb329672c55d5652a3db64&run=true')">Run Program</button>
+    </section>
+
+    <section>
+      <h2>10. Encapsulation pada Product</h2>
+      <p>Encapsulation adalah konsep dalam OOP yang digunakan untuk menyembunyikan data dan mengatur akses terhadap data tersebut melalui method tertentu.
+        Pada contoh produk, atribut disembunyikan dan hanya dapat diakses melalui getter dan setter yang memiliki validasi tertentu.</p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class Produk {
+  String _nama;
+  double _harga;
+
+  Produk(this._nama, this._harga);
+
+  String get nama => _nama;
+  double get harga => _harga;
+
+  set nama(String value) {
+    if (value.length >= 3) {
+      _nama = value;
+    }
+  }
+
+  set harga(double value) {
+    if (value > 0) {
+      _harga = value;
+    }
+  }
+}
+
+void main() {
+  var produk1 = Produk('Monitor Samsung', 3500.0);
+
+  print(produk1.nama);
+  print(produk1.harga);
+
+  produk1.nama = 'Keyboard';
+  produk1.harga = 1200.0;
+
+  print(produk1.nama);
+  print(produk1.harga);
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=a95bf60df5366b4804bff7e7cab10c9f&run=true')">Run Program</button>
+    </section>
+       <section>
+      <h2>11. Praktik 2 Enkapsulasi Lengkap</h2>
+      <p></p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class User {
+  String _username;
+  String _password;
+  String _email;
+
+  User(this._username, this._password, this._email);
+
+  // Getter
+  String get username => _username;
+  String get password => _password;
+  String get email => _email;
+
+  // Setter dengan validasi
+  set username(String value) {
+    if (value.length >= 5) {
+      _username = value;
+    }
+  }
+
+  set password(String value) {
+    if (value.length >= 8) {
+      _password = value;
+    }
+  }
+
+  set email(String value) {
+    if (value.contains("@")) {
+      _email = value;
+    }
+  }
+}
+
+void main() {
+  var user = User("uliya123", "rahasia123", "uliya@gmail.com");
+
+  // mencoba mengubah data
+  user.username = "uliya123";
+  user.password = "rahasia123";
+  user.email = "uliya@gmail.com";
+
+  // output
+  print("User: ${user.username}, Pass: ${user.password}");
+  print("Email: ${user.email}");
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=8c8480e7788dc1fcd3b410feccbb17bb&run=true')">Run Program</button>
+    </section>
+
+
+
+    
+
+    <section>
+      <h2>12. Encapsulation pada Login System</h2>
+      <p>Encapsulation juga dapat digunakan dalam sistem login untuk melindungi data penting seperti password.
+        Pada contoh ini, password tidak dapat diakses langsung dari luar class. Pengguna hanya dapat
+        melakukan proses login atau mengganti password melalui method yang telah disediakan..</p>
+       <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// Nim    : 251410008
+// Kelas  : SI2A
+
+class User {
+  String _username;
+  String _password;
+
+  User(this._username, this._password);
+
+  String get username => _username;
+
+  bool login(String username, String password) {
+    return _username == username && _password == password;
+  }
+
+  void gantiPassword(String lama, String baru) {
+    if (_password == lama && baru.length >= 8) {
+      _password = baru;
+      print('Password berhasil diubah');
+    }
+  }
+}
+
+void main() {
+  final user1 = User('admin', 'password123');
+
+  print(user1.login('admin', 'password123'));
+
+  user1.gantiPassword('password123', 'passwordBaru123');
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=76eba14427fb1c7a95b2bc2b0cb0a4e4&run=true')">Run Program</button>
+    </section>
+
+      <section>
+  <h2>13. Latihan</h2>
+
+  <ul>
+    <li>Buat class <span class="highlight">RekeningBank</span> dengan:</li>
+    <ul>
+      <li>Field private: <code>_nomorRekening</code>, <code>_saldo</code></li>
+      <li>Method: <code>deposit()</code>, <code>tarik()</code>, <code>cekSaldo()</code></li>
+      <li>Validasi: saldo tidak boleh negatif</li>
+    </ul>
+
+    <li>Buat program sederhana untuk simulasi transaksi.</li>
+  </ul>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+class RekeningBank {
+  late String _nomorRekening;
+  late double _saldo;
+
+  RekeningBank(this._nomorRekening, this._saldo);
+
+  void deposit(double jumlah) {
+    if (jumlah > 0) {
+      _saldo += jumlah;
+      print('Deposit berhasil: Rp $jumlah');
+    } else {
+      print('Jumlah deposit tidak valid');
+    }
+  }
+
+  void tarik(double jumlah) {
+    if (jumlah > _saldo) {
+      print('Saldo tidak mencukupi');
+    } else if (jumlah <= 0) {
+      print('Jumlah penarikan tidak valid');
+    } else {
+      _saldo -= jumlah;
+      print('Penarikan berhasil: Rp $jumlah');
+    }
+  }
+
+  void cekSaldo() {
+    print('Saldo saat ini: Rp $_saldo');
+  }
+}
+
+void main() {
+  var rekening = RekeningBank("123456789", 1000000);
+
+  print('--- Simulasi Transaksi ---');
+
+  rekening.cekSaldo();
+  rekening.deposit(500000);
+  rekening.cekSaldo();
+  rekening.tarik(300000);
+  rekening.cekSaldo();
+}
+    </code></pre>
+      <section>
+  <h2>Ringkasan</h2>
+  <ul>
+    <li>OOP adalah konsep pemrograman yang berfokus pada objek.</li>
+    <li>Class merupakan cetakan untuk membuat objek.</li>
+    <li>Object adalah hasil dari class yang memiliki atribut dan method.</li>
+    <li>Atribut menyimpan data pada objek.</li>
+    <li>Method berfungsi menjalankan tindakan pada objek.</li>
+  </ul>
+</section>
+        
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=b87f6c0c3746e4602455e06649ed1def&run=true')">Run Program</button>
+    </section>
+
+  </div>
+
+  <footer>
+    © 2026 - ULIYA GUMPARI ✨
+  </footer>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <iframe id="dartFrame" src=""></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Reveal Animations
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Modal Logic
+    function openModal(link) {
+      document.getElementById("modal").style.display = "block";
+      document.getElementById("dartFrame").src = link;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+      document.getElementById("dartFrame").src = "";
+      document.body.style.overflow = "auto";
+    }
+
+    window.onclick = function (e) {
+      if (e.target == document.getElementById("modal")) closeModal();
+    }
+
+    // SECURITY PROTOCOL: ANTI-VANDALISM & ANTI-VIEWSOURCE
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function (e) {
+      if (e.keyCode == 123) return false; // F12
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) return false; // Ctrl+Shift+I/J/C
+      if (e.ctrlKey && e.keyCode == 85) return false; // Ctrl+U
+      if (e.ctrlKey && e.keyCode == 83) return false; // Ctrl+S
+    };
+    document.onselectstart = function () { return false; };
+
+  </script>
+
+</body>
+
+</html>
