@@ -426,9 +426,6 @@ void main() {
 
      <section>
       <h2>06. Praktik 1 Polimorfisme dengan List</h2>
-     <section>
-  <h2>Konsep Polimorfisme dengan List</h2>
-
   <p>
     Sebuah list dengan tipe parent dapat menyimpan berbagai objek dari subclass yang berbeda.
   </p>
@@ -565,41 +562,40 @@ void main() {
     </section>
 
     <section>
-      <h2>08. Getter</h2>
-      <p>Getter adalah method yang digunakan untuk mengambil atau membaca nilai atribut dari sebuah class.  Getter biasanya
-        digunakan ketika atribut bersifat private sehingga nilai tersebut tidak dapat diakses secara langsung dari luar class.
-      </p>
-
+      <h2>09. Abstract Method</h2>
+     <p>
+    Abstract method adalah method tanpa implementasi yang wajib
+    di-override oleh class turunannya.
+  </p>
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
         <pre><code>// Nama   : Uliya Gumpari
 // Nim    : 251410008
 // Kelas  : SI2A
+          abstract class AlatMusik {
+  void mainkan();
 
-class Person {
-  String _name;
-  int age;
-
-  Person(this._name, this.age);
-
-  String get getName1 {
-    return _name;
+  void info() {
+    print('Ini adalah alat musik');
   }
+}
 
-  String getName() {
-    return _name;
+class Gitar extends AlatMusik {
+  @override
+  void mainkan() {
+    print('Jreng jreng...');
   }
 }
 
 void main() {
-  Person person = Person("Uliya", 18);
-  print(person.getName());
-  print(person.getName1);
+  Gitar g = Gitar();
+  g.info();
+  g.mainkan();
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=8deb8c7967c461c4bf87dae44d88c0ea&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=e74bc16f8d99cd6fcf9a93ed7aeb365d&run=true')">Run Program</button>
     </section>
 
     <section>
