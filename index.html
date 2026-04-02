@@ -716,7 +716,6 @@ class Tunai implements MetodePembayaran {
 }
 
 void main() {
-  // polimorfisme
   MetodePembayaran m1 = KartuKredit();
   MetodePembayaran m2 = EWallet();
   MetodePembayaran m3 = Tunai();
@@ -870,7 +869,6 @@ class Guru implements Pekerja {
 }
 
 void main() {
-  // polimorfisme pakai list
   List<Pekerja> daftar = [
     Programmer(),
     Dokter(),
@@ -915,7 +913,6 @@ class Telepon {
   void telepon() => print('Menelpon...');
 }
 
-// multiple interface
 class Tablet implements Komputer, Kamera, Telepon {
   @override
   void mengetik() => print('Tablet bisa mengetik');
@@ -941,7 +938,7 @@ void main() {
    </section>
 
       <section>
-  <h2>. Bonus 3 : Class Mathutils</h2>
+  <h2>18. Bonus 3 : Class Mathutils</h2>
 <p>
     Class MathUtils adalah class yang berisi kumpulan method dan variabel static 
     untuk melakukan operasi perhitungan matematika tanpa perlu membuat objek.
