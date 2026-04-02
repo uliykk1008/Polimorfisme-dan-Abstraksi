@@ -315,8 +315,6 @@ void main() {
 
     <section>
   <h2>02. Pengantar Polimorfisme</h2>
- <section>
-  <h2>Pengantar Polimorfisme</h2>
 
  <p>
     <b>Polimorfisme</b> berasal dari kata <i>poly</i> yang berarti banyak dan 
@@ -341,11 +339,16 @@ void main() {
 </section>
       
     <section>
-      <h2>03. Named Constructor-contoh</h2>
-      <p>Named constructor adalah constructor yang memiliki nama tambahan dalam sebuah class.
-Constructor ini digunakan untuk membuat objek dengan cara yang berbeda dari constructor utama.
-Dalam Dart, penulisannya menggunakan format .<span class="highlight">NamaClass.namaConstructor()</span>.
-      </p>
+      <h2>03. Polimorfisme dengan Inheritance</h2>
+     <p>
+    Polimorfisme dengan inheritance memungkinkan referensi dengan tipe parent
+    digunakan untuk menampung objek dari class child.
+  </p>
+
+  <p>
+    Hal ini membuat satu tipe data dapat digunakan untuk berbagai objek
+    yang memiliki hubungan pewarisan.
+  </p>
 
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
@@ -353,62 +356,32 @@ Dalam Dart, penulisannya menggunakan format .<span class="highlight">NamaClass.n
 // NIM   : 251410008
 // Kelas : SI2A
 
-import 'dart:convert';
+class Bentuk {
+  void gambar() => print('Menggambar bentuk');
+}
 
-class Mobil {
-  String? merk;
-  int? tahun;
+class Lingkaran extends Bentuk {
+  @override
+  void gambar() => print('Menggambar lingkaran');
+}
 
-  // Constructor utama
-  Mobil(this.merk, this.tahun);
-
-  // Named constructor untuk mobil baru
-  Mobil.mobilBaru()
-      : merk = 'Toyota',
-        tahun = 2023;
-
-  // Named constructor dari JSON
-  Mobil.fromJson(Map<String, dynamic> data)
-      : merk = data['merk'],
-        tahun = data['tahun'];
-
-  // Method tambahan untuk menampilkan info mobil
-  void infoMobil() {
-    print('Mobil $merk diproduksi pada tahun $tahun');
-  }
+class Persegi extends Bentuk {
+  @override
+  void gambar() => print('Menggambar persegi');
 }
 
 void main() {
-  print('=== Contoh Penggunaan Constructor pada Class Mobil ===\n');
+  // objek pakai tipe parent (polimorfisme)
+  Bentuk b1 = Lingkaran();
+  Bentuk b2 = Persegi();
 
-  // 1. Menggunakan constructor biasa
-  var mobil1 = Mobil('Honda', 2020);
-  print('Objek pertama:');
-  mobil1.infoMobil();
-
-  print('');
-
-  // 2. Menggunakan named constructor
-  var mobil2 = Mobil.mobilBaru();
-  print('Objek kedua (mobil baru):');
-  mobil2.infoMobil();
-
-  print('');
-
-  // 3. Menggunakan data JSON
-  String jsonString = '{"merk":"Suzuki","tahun":2021}';
-  Map<String, dynamic> data = jsonDecode(jsonString);
-
-  var mobil3 = Mobil.fromJson(data);
-  print('Objek ketiga (dari JSON):');
-  mobil3.infoMobil();
-
-  print('\nProgram selesai dijalankan.');
+  b1.gambar();
+  b2.gambar();
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=2ffef3d81726bfde3daa75f5ab548ef9&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=8f8a5dda6209b566648956376c3ef81c&run=true')">Run Program</button>
     </section>
 
     <section>
