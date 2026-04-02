@@ -360,20 +360,19 @@ class Bentuk {
   void gambar() => print('Menggambar bentuk');
 }
 
-class Lingkaran extends Bentuk {
-  @override
-  void gambar() => print('Menggambar lingkaran');
-}
-
 class Persegi extends Bentuk {
   @override
-  void gambar() => print('Menggambar persegi');
+  void gambar() => print('Menggambar Persegi');
+}
+
+class PersegiPanjang extends Bentuk {
+  @override
+  void gambar() => print('Menggambar Persegi Panjang');
 }
 
 void main() {
-  // objek pakai tipe parent (polimorfisme)
-  Bentuk b1 = Lingkaran();
-  Bentuk b2 = Persegi();
+  Bentuk b1 = Persegi();
+  Bentuk b2 = PersegiPanjang();
 
   b1.gambar();
   b2.gambar();
