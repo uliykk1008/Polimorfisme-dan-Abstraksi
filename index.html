@@ -889,20 +889,134 @@ void main() {
       <button onclick="openModal('https://dartpad.dev/?id=0393ef45b97b16464ac91210e49731eb&run=true')">Run Program</button>
     </section>
 
-  <h2>Ringkasan</h2>
-  <ul>
-    <li>OOP adalah konsep pemrograman yang berfokus pada objek.</li>
-    <li>Class merupakan cetakan untuk membuat objek.</li>
-    <li>Object adalah hasil dari class yang memiliki atribut dan method.</li>
-    <li>Atribut menyimpan data pada objek.</li>
-    <li>Method berfungsi menjalankan tindakan pada objek.</li>
-  </ul>
-</section>
-        
-      </div>
+  <section>
+  <h2>17. Bonus 2 : Class Tablet</h2>
+  <p>
+    Class Pekerja adalah konsep dalam pemrograman yang digunakan untuk 
+    merepresentasikan berbagai jenis pekerjaan dengan method yang sama, 
+    tetapi memiliki implementasi yang berbeda pada setiap turunannya.
+  </p>
 
-      <button onclick="openModal('https://dartpad.dev/?id=b87f6c0c3746e4602455e06649ed1def&run=true')">Run Program</button>
-    </section>
+  <div class="code-container">
+    <div class="code-header">DART SOURCE CODE</div>
+<pre><code>// Nama  : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+class Komputer {
+  void mengetik() => print('Mengetik...');
+}
+
+class Kamera {
+  void foto() => print('Mengambil foto...');
+}
+
+class Telepon {
+  void telepon() => print('Menelpon...');
+}
+
+// multiple interface
+class Tablet implements Komputer, Kamera, Telepon {
+  @override
+  void mengetik() => print('Tablet bisa mengetik');
+
+  @override
+  void foto() => print('Tablet bisa foto');
+
+  @override
+  void telepon() => print('Tablet bisa telepon');
+}
+
+void main() {
+  Tablet t = Tablet();
+
+  t.mengetik();
+  t.foto();
+  t.telepon();
+}
+</code></pre>
+  </div>
+
+  <button onclick="openModal('https://dartpad.dev/?id=f1a8c3b977a481a3894c5b4849856603&run=true')">Run Program</button>
+   </section>
+
+      <section>
+  <h2>. Bonus 3 : Class Mathutils</h2>
+<p>
+    Class MathUtils adalah class yang berisi kumpulan method dan variabel static 
+    untuk melakukan operasi perhitungan matematika tanpa perlu membuat objek.
+  </p>
+
+  <div class="code-container">
+    <div class="code-header">DART SOURCE CODE</div>
+<pre><code>// Nama  : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+import 'dart:math';
+
+class MathUtils {
+
+  static int faktorial(int n) {
+    if (n <= 1) return 1;
+    return n * faktorial(n - 1);
+  }
+
+  static bool isPrima(int n) {
+    if (n < 2) return false;
+
+    for (int i = 2; i <= sqrt(n); i++) {
+      if (n % i == 0) return false;
+    }
+    return true;
+  }
+
+  static double roundDouble(double value, int decimal) {
+    double mod = pow(10, decimal).toDouble();
+    return (value * mod).round() / mod;
+  }
+
+  static int randomInt(int min, int max) {
+    return min + Random().nextInt(max - min + 1);
+  }
+
+  static double randomDouble(double min, double max) {
+    return min + Random().nextDouble() * (max - min);
+  }
+
+  static double rataRata(List<num> data) {
+    return data.reduce((a, b) => a + b) / data.length;
+  }
+
+  static double median(List<num> data) {
+    var sorted = List<num>.from(data)..sort();
+    int n = sorted.length;
+
+    if (n % 2 == 1) {
+      return sorted[n ~/ 2].toDouble();
+    } else {
+      return (sorted[n ~/ 2 - 1] + sorted[n ~/ 2]) / 2;
+    }
+  }
+}
+
+void main() {
+  print(MathUtils.faktorial(5));
+  print(MathUtils.isPrima(7));
+  print(MathUtils.roundDouble(3.14159, 2));
+  print(MathUtils.randomInt(1, 10));
+  print(MathUtils.randomDouble(1, 5));
+  print(MathUtils.rataRata([1, 2, 3, 4]));
+  print(MathUtils.median([1, 2, 3, 4, 5]));
+}
+</code></pre>
+  </div>
+
+  <button onclick="openModal('https://dartpad.dev/?id=afa267be283fff316ebe654a6fe027c5&run=true')">Run Program</button>
+   </section>
+
+
+    
 
   </div>
 
