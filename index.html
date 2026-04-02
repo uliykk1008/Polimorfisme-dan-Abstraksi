@@ -425,9 +425,18 @@ void main() {
     </section>
 
      <section>
-      <h2>06. Praktik 1 Multiple Constructor</h2>
-      <p>Praktik pembuatan kelas Mahasiswa yang memiliki beberapa jenis konstruktor untuk 
-        memberikan kemudahan dalam membuat objek berdasarkan kebutuhan data yang berbeda.</p>
+      <h2>06. Praktik 1 Polimorfisme dengan List</h2>
+     <section>
+  <h2>Konsep Polimorfisme dengan List</h2>
+
+  <p>
+    Sebuah list dengan tipe parent dapat menyimpan berbagai objek dari subclass yang berbeda.
+  </p>
+
+  <p>
+    Ketika dilakukan perulangan, setiap objek akan menjalankan method sesuai dengan
+    implementasi yang dimilikinya masing-masing.
+  </p>
 
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
@@ -435,77 +444,124 @@ void main() {
 // NIM   : 251410008
 // Kelas : SI2A
 
-class Mahasiswa {
-  String nama;
-  int umur;
+class Hewan {
+  void bersuara() {
+    print('Hewan bersuara');
+  }
+}
 
-  // Constructor default
-  Mahasiswa(this.nama, this.umur);
+class Kucing extends Hewan {
+  @override
+  void bersuara() => print('Meong');
+}
 
-  // Named constructor dari Map
-  Mahasiswa.dariMap(Map<String, dynamic> data)
-      : nama = data['nama'],
-        umur = data['umur'];
+class Anjing extends Hewan {
+  @override
+  void bersuara() => print('Guk guk');
+}
 
-  // Named constructor tanpa nama
-  Mahasiswa.tanpaNama(this.umur) : nama = "Tanpa Nama";
+class Burung extends Hewan {
+  @override
+  void bersuara() => print('Cuit cuit');
+}
 
-  void tampilkan() {
-    print("Nama: $nama, Umur: $umur");
+void main() {
+  // List polimorfisme
+  List<Hewan> daftarHewan = [
+    Kucing(),
+    Anjing(),
+    Burung(),
+  ];
+
+  // loop & panggil method
+  for (var h in daftarHewan) {
+    h.bersuara();
+  }
+}
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=931f7a6cab62040fc5c76f6b4951ac2d&run=true')">Run Program</button>
+    </section>
+
+       <section>
+  <h2>07.Pengantar Abstraksi</h2>
+
+  <p>
+    Abstraksi adalah konsep dalam Object Oriented Programming (OOP) yang digunakan
+    untuk menyembunyikan detail implementasi dan hanya menampilkan bagian penting
+    dari suatu objek kepada pengguna.
+  </p>
+
+  <p>
+    Dengan abstraksi, pengguna tidak perlu mengetahui bagaimana suatu proses bekerja,
+    tetapi cukup mengetahui apa yang dapat dilakukan oleh objek tersebut.
+  </p>
+
+  <p><b>Konsep Abstraksi:</b></p>
+  <ul>
+    <li>Menyederhanakan sistem dengan menyembunyikan detail yang tidak diperlukan</li>
+    <li>Menampilkan hanya fitur atau fungsi utama</li>
+    <li>Menggunakan abstract class atau interface</li>
+  </ul>
+
+  <p><b>Tujuan Abstraksi:</b></p>
+  <ul>
+    <li>Membuat kode lebih sederhana dan mudah dipahami</li>
+    <li>Mengurangi kompleksitas program</li>
+    <li>Meningkatkan keamanan dengan menyembunyikan detail internal</li>
+    <li>Mempermudah pengembangan dan perawatan kode</li>
+  </ul>
+
+  <p><b>Cara Menerapkan Abstraksi di Dart:</b></p>
+  <ul>
+    <li>Menggunakan <b>abstract class</b> untuk membuat kerangka dasar</li>
+    <li>Mendefinisikan <b>abstract method</b> tanpa isi</li>
+    <li>Mengimplementasikan method tersebut di class turunan</li>
+    <li>Menggunakan <b>implements</b> untuk membuat interface</li>
+  </ul>
+</section>
+
+    <section>
+      <h2>08. Abstract Class</h2>
+  <p>
+    Abstract class merupakan class yang berfungsi sebagai blueprint
+    dan hanya dapat digunakan melalui class turunannya.
+  </p>
+
+      <div class="code-container">
+        <div class="code-header">DART SOURCE CODE</div>
+        <pre><code>// Nama   : Uliya Gumpari
+// NIM   : 251410008
+// Kelas : SI2A
+
+abstract class Kendaraan {
+  String? merk;
+
+  void start();
+
+  void stop() {
+    print('Kendaraan berhenti');
+  }
+}
+
+class Mobil extends Kendaraan {
+  @override
+  void start() {
+    print('Mobil $merk menyala');
   }
 }
 
 void main() {
-  // Objek dari constructor default
-  var mhs1 = Mahasiswa("Uliya", 18);
-
-  // Objek dari named constructor dariMap
-  var data = {"nama": "Gumpari", "umur": 18};
-  var mhs2 = Mahasiswa.dariMap(data);
-
-  // Objek dari named constructor tanpaNama
-  var mhs3 = Mahasiswa.tanpaNama(19);
-
-  mhs1.tampilkan();
-  mhs2.tampilkan();
-  mhs3.tampilkan();
+  Mobil m = Mobil();
+  m.merk = "BMW"; // merk mobil
+  m.start();
+  m.stop();
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=f6c646b52ec042f01fc5afcddb6f75d5&run=true')">Run Program</button>
-    </section>
-
-    <section>
-      <h2>07. Public & Private</h2>
-      <p>Public dan private digunakan untuk mengatur tingkat akses terhadap atribut atau method dalam sebuah class.
-        Dalam Object Oriented Programming, atribut yang diawali dengan tanda _ dianggap private,
-        artinya atribut tersebut hanya dapat diakses dari dalam class yang sama.</p>
-
-      <div class="code-container">
-        <div class="code-header">DART SOURCE CODE</div>
-        <pre><code>// Nama   : Uliya Gumpari
-// NIM   : 251410008
-// Kelas : SI2A
-
-class Person {
-  String name;
-  int age;
-
-  Person(this.name, this.age);
-}
-
-void main() {
-  var person = Person("Uliya", 18);
-
-  print("Nama: ${person.name}");
-  print("Umur: ${person.age}");
-}
-}
-}</code></pre>
-      </div>
-
-      <button onclick="openModal('https://dartpad.dev/?id=6ccaec7c380565edfe9ef90eebfa4754&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=a2351f34fa385e85f3c051728f13a8ed&run=true')">Run Program</button>
     </section>
 
     <section>
