@@ -406,30 +406,17 @@ void main() {
 // Nim    : 251410008
 // Kelas  : SI2A
 
-class Kendaraan {}
+class Transportasi {}
 
-class Mobil extends Kendaraan {
-  void klakson() => print('Tin!');
-}
-
-class Motor extends Kendaraan {
-  void klakson() => print('Tinnn motor!');
+class Bus extends Transportasi {
+  void klakson() {
+    print('Bip bip!');
+  }
 }
 
 void main() {
-  // objek diganti-ganti (polimorfisme)
-  Kendaraan k = Mobil();
-
-  if (k is Mobil) {
-    (k as Mobil).klakson();
-  }
-
-  // ganti objek
-  k = Motor();
-
-  if (k is Motor) {
-    (k as Motor).klakson();
-  }
+  Bus k = Bus();
+  k.klakson();
 }
 }</code></pre>
       </div>
