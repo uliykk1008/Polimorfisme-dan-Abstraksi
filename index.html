@@ -677,8 +677,12 @@ void main() {
       <button onclick="openModal('https://dartpad.dev/?id=b2345bcbd0536fd65f575b6a9b51a66c&run=true')">Run Program</button>
     </section>
        <section>
-      <h2>11. Praktik 2 Enkapsulasi Lengkap</h2>
-      <p></p>
+      <h2>13. Praktik 2 Sistem Pembayaran</h2>
+     <p>
+    Sistem pembayaran adalah mekanisme yang digunakan untuk melakukan transaksi 
+    antara pembeli dan penjual, baik secara tunai maupun non-tunai seperti 
+    transfer bank, e-wallet, dan kartu kredit.
+  </p>
 
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
@@ -686,117 +690,134 @@ void main() {
 // Nim    : 251410008
 // Kelas  : SI2A
 
-class User {
-  String _username;
-  String _password;
-  String _email;
+abstract class MetodePembayaran {
+  void bayar(double jumlah);
+}
 
-  User(this._username, this._password, this._email);
-
-  // Getter
-  String get username => _username;
-  String get password => _password;
-  String get email => _email;
-
-  // Setter dengan validasi
-  set username(String value) {
-    if (value.length >= 5) {
-      _username = value;
-    }
+class KartuKredit implements MetodePembayaran {
+  @override
+  void bayar(double jumlah) {
+    print('Bayar $jumlah dengan Kartu Kredit');
   }
+}
 
-  set password(String value) {
-    if (value.length >= 8) {
-      _password = value;
-    }
+class EWallet implements MetodePembayaran {
+  @override
+  void bayar(double jumlah) {
+    print('Bayar $jumlah dengan E-Wallet');
   }
+}
 
-  set email(String value) {
-    if (value.contains("@")) {
-      _email = value;
-    }
+class Tunai implements MetodePembayaran {
+  @override
+  void bayar(double jumlah) {
+    print('Bayar $jumlah dengan Tunai');
   }
 }
 
 void main() {
-  var user = User("uliya123", "rahasia123", "uliya@gmail.com");
+  // polimorfisme
+  MetodePembayaran m1 = KartuKredit();
+  MetodePembayaran m2 = EWallet();
+  MetodePembayaran m3 = Tunai();
 
-  // mencoba mengubah data
-  user.username = "uliya123";
-  user.password = "rahasia123";
-  user.email = "uliya@gmail.com";
-
-  // output
-  print("User: ${user.username}, Pass: ${user.password}");
-  print("Email: ${user.email}");
+  m1.bayar(100000);
+  m2.bayar(50000);
+  m3.bayar(20000);
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=8c8480e7788dc1fcd3b410feccbb17bb&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=6832444a1db2638d731bcc62f0ddd175&run=true')">Run Program</button>
     </section>
 
-
-
-    
-
     <section>
-      <h2>12. Encapsulation pada Login System</h2>
-      <p>Encapsulation juga dapat digunakan dalam sistem login untuk melindungi data penting seperti password.
-        Pada contoh ini, password tidak dapat diakses langsung dari luar class. Pengguna hanya dapat
-        melakukan proses login atau mengganti password melalui method yang telah disediakan..</p>
+      <h2>14. Studi Kasus : Sistem Bentuk Geometri</h2>
+    <p>
+    Sistem bentuk geometri digunakan untuk menghitung luas dan keliling 
+    berbagai bangun seperti persegi, lingkaran, dan segitiga dengan 
+    memanfaatkan konsep class dan method.
+  </p>
        <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
         <pre><code>// Nama   : Uliya Gumpari
 // Nim    : 251410008
 // Kelas  : SI2A
 
-class User {
-  String _username;
-  String _password;
+abstract class Bentuk {
+  double hitungLuas();
+  double hitungKeliling();
 
-  User(this._username, this._password);
-
-  String get username => _username;
-
-  bool login(String username, String password) {
-    return _username == username && _password == password;
+  void info() {
+    print('Luas: ${hitungLuas()}, Keliling: ${hitungKeliling()}');
   }
+}
 
-  void gantiPassword(String lama, String baru) {
-    if (_password == lama && baru.length >= 8) {
-      _password = baru;
-      print('Password berhasil diubah');
-    }
+class Persegi implements Bentuk {
+  double sisi;
+  Persegi(this.sisi);
+
+  @override
+  double hitungLuas() => sisi * sisi;
+
+  @override
+  double hitungKeliling() => 4 * sisi;
+
+  @override
+  void info() {
+    print(
+        'Persegi dengan sisi $sisi memiliki luas ${hitungLuas()} dan keliling ${hitungKeliling()}');
+  }
+}
+
+class Lingkaran implements Bentuk {
+  double radius;
+  Lingkaran(this.radius);
+
+  @override
+  double hitungLuas() => 3.14 * radius * radius;
+
+  @override
+  double hitungKeliling() => 2 * 3.14 * radius;
+
+  @override
+  void info() {
+    print(
+        'Lingkaran dengan radius $radius memiliki luas ${hitungLuas()} dan keliling ${hitungKeliling()}');
   }
 }
 
 void main() {
-  final user1 = User('admin', 'password123');
+  Bentuk b1 = Persegi(4);
+  Bentuk b2 = Lingkaran(7);
 
-  print(user1.login('admin', 'password123'));
-
-  user1.gantiPassword('password123', 'passwordBaru123');
+  b1.info();
+  b2.info();
 }
 }</code></pre>
       </div>
 
-      <button onclick="openModal('https://dartpad.dev/?id=76eba14427fb1c7a95b2bc2b0cb0a4e4&run=true')">Run Program</button>
+      <button onclick="openModal('https://dartpad.dev/?id=21263836fbeb5a91e5557ef412c21776&run=true')">Run Program</button>
     </section>
 
+    <section>
+  <h2>15. Kesimpulan</h2>
+
+  <p>
+    Polimorfisme memungkinkan objek digunakan dalam berbagai bentuk, 
+    sedangkan abstraksi membantu menyembunyikan detail implementasi. 
+    Keduanya membuat kode lebih fleksibel, terstruktur, dan mudah 
+    dikembangkan serta dipelihara.
+  </p>
+</section>
+
       <section>
-  <h2>13. Latihan</h2>
-
-  <ul>
-    <li>Buat class <span class="highlight">RekeningBank</span> dengan:</li>
-    <ul>
-      <li>Field private: <code>_nomorRekening</code>, <code>_saldo</code></li>
-      <li>Method: <code>deposit()</code>, <code>tarik()</code>, <code>cekSaldo()</code></li>
-      <li>Validasi: saldo tidak boleh negatif</li>
-    </ul>
-
-    <li>Buat program sederhana untuk simulasi transaksi.</li>
-  </ul>
+  <h2>16.Bonus 1 : Class Pekerja </h2>
+<p>
+    Buat abstract atau interface class <b>Pekerja</b> dengan method <i>bekerja()</i>. 
+    Kemudian buat beberapa class seperti Programmer, Dokter, dan Guru yang 
+    mengimplementasikan method tersebut. Tampilkan hasilnya menggunakan konsep polimorfisme.
+  </p>
 
       <div class="code-container">
         <div class="code-header">DART SOURCE CODE</div>
@@ -804,50 +825,70 @@ void main() {
 // NIM   : 251410008
 // Kelas : SI2A
 
-class RekeningBank {
-  late String _nomorRekening;
-  late double _saldo;
+abstract class Pekerja {
+  void bekerja(); // abstract
 
-  RekeningBank(this._nomorRekening, this._saldo);
+  void info() {
+    print('Ini adalah pekerja');
+  }
+}
 
-  void deposit(double jumlah) {
-    if (jumlah > 0) {
-      _saldo += jumlah;
-      print('Deposit berhasil: Rp $jumlah');
-    } else {
-      print('Jumlah deposit tidak valid');
-    }
+class Programmer implements Pekerja {
+  @override
+  void bekerja() {
+    print('Programmer sedang coding');
   }
 
-  void tarik(double jumlah) {
-    if (jumlah > _saldo) {
-      print('Saldo tidak mencukupi');
-    } else if (jumlah <= 0) {
-      print('Jumlah penarikan tidak valid');
-    } else {
-      _saldo -= jumlah;
-      print('Penarikan berhasil: Rp $jumlah');
-    }
+  @override
+  void info() {
+    print('Pekerja: Programmer');
+  }
+}
+
+class Dokter implements Pekerja {
+  @override
+  void bekerja() {
+    print('Dokter sedang memeriksa pasien');
   }
 
-  void cekSaldo() {
-    print('Saldo saat ini: Rp $_saldo');
+  @override
+  void info() {
+    print('Pekerja: Dokter');
+  }
+}
+
+class Guru implements Pekerja {
+  @override
+  void bekerja() {
+    print('Guru sedang mengajar');
+  }
+
+  @override
+  void info() {
+    print('Pekerja: Guru');
   }
 }
 
 void main() {
-  var rekening = RekeningBank("123456789", 1000000);
+  // polimorfisme pakai list
+  List<Pekerja> daftar = [
+    Programmer(),
+    Dokter(),
+    Guru(),
+  ];
 
-  print('--- Simulasi Transaksi ---');
-
-  rekening.cekSaldo();
-  rekening.deposit(500000);
-  rekening.cekSaldo();
-  rekening.tarik(300000);
-  rekening.cekSaldo();
+  for (var p in daftar) {
+    p.info();
+    p.bekerja();
+    print('---');
+  }
 }
-    </code></pre>
-      <section>
+}</code></pre>
+      </div>
+
+      <button onclick="openModal('https://dartpad.dev/?id=0393ef45b97b16464ac91210e49731eb&run=true')">Run Program</button>
+    </section>
+
   <h2>Ringkasan</h2>
   <ul>
     <li>OOP adalah konsep pemrograman yang berfokus pada objek.</li>
